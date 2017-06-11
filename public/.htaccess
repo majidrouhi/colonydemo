@@ -1,0 +1,10 @@
+RewriteBase /
+RewriteRule ^api\/getq$ apihndlr.php?api=getq [L,NC]
+RewriteRule ^api\/getdata$ apihndlr.php?api=getdata [L,NC]
+RewriteRule ^api\/register\/(.+)$ apihndlr.php?api=register&name=$1 [L,NC]
+RewriteRule ^api\/setanswer\/(.+)\/(.+)$ apihndlr.php?api=setanswer&questionId=$1&answer=$2 [L,NC]
+RewriteRule ^api\/login\/(.+)$ apihndlr.php?api=login&username=$1 [L,NC]
+RewriteRule ^api\/logout$ apihndlr.php?api=logout [L,NC]
+RewriteRule ^$ index.php?view=questions [L,NC]
+RewriteRule ^questions$ index.php?view=questions [L,NC]
+RewriteRule report$ index.php?view=report [L,NC]
