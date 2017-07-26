@@ -12,11 +12,11 @@
 				Maintenance::handleExceptions($ex);
 			}
 
-			$browsercap = get_browser($_SERVER['HTTP_USER_AGENT'], true);
+			// $browsercap = get_browser($_SERVER['HTTP_USER_AGENT'], true);
 
-			$_SESSION['BROWSER'] = $browsercap['browser'];
-			$_SESSION['PLATFORM'] = $browsercap['platform'];
-			$_SESSION['DEVICE_TYPE'] = $browsercap['device_type'];
+			$_SESSION['BROWSER'] = null; //$browsercap['browser'];
+			$_SESSION['PLATFORM'] = null; //$browsercap['platform'];
+			$_SESSION['DEVICE_TYPE'] = null; //$browsercap['device_type'];
 			$_SESSION['ROLE'] = self::getClientRole();
 			$_SESSION['IP_ADDRESS'] = self::getClientIP();
 			$_SESSION['COUNTRY'] = self::getClientCountry();

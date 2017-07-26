@@ -10,7 +10,7 @@
 			if (!$token) return false; //throw new Exception(OBJECT_ERROR_MSG)
 
 			$user = new TblUsers();
-			$userData = $user -> get($token['userId'])[0];
+			$userData = $user -> get($token['userId']);
 
 			try
 			{

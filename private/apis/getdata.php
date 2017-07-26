@@ -1,7 +1,9 @@
 <?php
+	http_response_code(BAD_REQUEST);
+
 	$answer = new Answer();
 
-	$result = $answer -> getAll();
+	$result = $answer -> get();
 
 	if ($result)
 	{

@@ -7,7 +7,6 @@
 			{
 				http_response_code(BAD_REQUEST);
 
-
 				if ($_view == null)
 				{
 					$allowedParams = explode(DELIMITER, VIEW_PARAMS);

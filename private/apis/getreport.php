@@ -1,9 +1,9 @@
 <?php
-	http_response_code(BAD_REQUEST);
+	if (!User::authorize()) die();
 
-	$question = new Question();
+	$answer = new Answer();
 
-	$result = $question -> get();
+	$result = $answer -> get();
 
 	if ($result)
 	{

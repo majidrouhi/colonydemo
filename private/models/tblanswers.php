@@ -8,16 +8,15 @@
 			parent::__construct(DB_DATA, TBL_ANSWERS);
 		}
 
-		public function insert ($_userId, $_questionId, $_answer, $_point)
+		public function insert ($_userId, $_questionId, $_answer)
 		{
 			return parent::_insert([
 				'user_id' => $_userId,
 				'question_id' => $_questionId,
-				'answer' => $_answer,
-				'point' => $_point]);
+				'answer' => $_answer]);
 		}
 
-		public function getAll($_fields = ['*'])
+		public function getAll ($_fields = ['*'])
 		{
 			$join = 'users ON users.id = answers.user_id';
 			$result = parent::_select($_fields, null, $join);
@@ -27,32 +26,37 @@
 			return $fetchedResult;
 		}
 
-		public function getByUser ($_userId = null)
+		public function getByUser ($_userId, $_fields)
 		{
 			$where = null;
 			$fetchedResult = [];
 
-			if ($_userId != null) $where = Validation::isNumber($_userId) ? 'user_id = ' . $_userId : null;
-
-			$result = parent::_select(['*'], $where);
+			$where = Validation::isNumber($_userId) ? 'user_id = ' . $_userId : null;
+			$result = parent::_select($_fields, $where);
 
 			while ($row = $result -> fetch(PDO::FETCH_ASSOC)) $fetchedResult[] = $row;
 
 			return $fetchedResult;
 		}
 
-		public function getByQuestion ($_questionId = null)
+		public function getByQuestion ($_questionId, $_fields)
 		{
 			$where = null;
 			$fetchedResult = [];
 
-			if ($_questionId != null) $where = Validation::isNumber($_questionId) ? 'question_id = ' . $_questionId : null;
+			$where = Validation::isNumber($_questionId) ? 'question_id = ' . $_questionId : null;
 
-			$result = parent::_select(['*'], $where);
+			$result = parent::_select($_fields, $where, ' users ON users.id = answers.user_id');
 
 			while ($row = $result -> fetch(PDO::FETCH_ASSOC)) $fetchedResult[] = $row;
 
 			return $fetchedResult;
+		}
+
+		public function update ($_answer, $_where)
+		{
+			return parent::_update([
+				'answer' => $_answer], $_where);
 		}
 	}
 ?>

@@ -59,9 +59,8 @@
 		public function _select ($_params = ['*'], $_whereStr = null, $_joinStr = null, $_limitStr = null, $_orderbyStr = null)
 		{
 			if (empty($_params) || !is_array($_params)) $_params = ['*'];
-			if ($_whereStr != null) $_joinStr = null;
 
-			$sQuery = 'SELECT ' . implode(DELIMITER, $_params) . ' FROM ' . $this -> tableName . (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) .  (empty($_joinStr) ? null : ' INNER JOIN ' . $_joinStr) . (empty($_limitStr) ? null : ' LIMIT ' . $_limitStr) . (empty($_orderbyStr) ? null : ' ORDER BY ' . $_orderbyStr) . ';';
+			$sQuery = 'SELECT ' . implode(DELIMITER, $_params) . ' FROM ' . $this -> tableName . (empty($_joinStr) ? null : ' INNER JOIN ' . $_joinStr) . (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) . (empty($_limitStr) ? null : ' LIMIT ' . $_limitStr) . (empty($_orderbyStr) ? null : ' ORDER BY ' . $_orderbyStr) . ';';
 
 			return $this -> dbh -> execute($sQuery);
 		}

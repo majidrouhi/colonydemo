@@ -1,26 +1,3 @@
-<?php
-	// try
-	// {
-	// 	$allowedParams = explode(DELIMITER, GET_CONTENT_PARAMS);
-	// 	$err = Validation::requiredOnGet($allowedParams);
-
-	// 	if (!empty($err)) throw new Exception(API_PARAMETERS_MSG . ' (' . implode(DELIMITER, $err) . ')');
-
-	// 	$get = Validation::get($allowedParams);
-
-	// 	if (!Validation::checkLength($get[$allowedParams[0]], ['max' => MAX_PID_LENGTH])) throw new Exception(API_PARAMETERS_MSG . ' (' . $allowedParams[0] . ')');
-
-	// 	$obj = new Content();
-
-	// 	$result = $obj -> get($get);
-
-	// 	$result = $result['result'];
-	// }
-	// catch (Exception $ex)
-	// {
-	// 	Maintenance::handleApiErrors($ex);
-	// }
-?>
 				<div ng-controller="ReportCtrl">
 					<table>
 						<tr>
@@ -39,7 +16,7 @@
 						</tr>
 						<tr ng-repeat="user in data">
 							<th>{{user.name}}</th>
-							<td ng-repeat="x in user.nearest">{{x.percent}}% ({{x.raw}})</td>
+							<td ng-repeat="x in user.data">{{x.totalPercent}}% ( {{x.similarCount}} )</td>
 						</tr>
 					</table>
 				</div>

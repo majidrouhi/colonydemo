@@ -1,0 +1,231 @@
+
+body {
+    background-color: #230a41;
+    width: 100%;
+    height: 100%;
+    margin: 0 0 ;
+    font-family: 'Open Sans', sans-serif;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.title {
+    margin:  auto;
+    color: white;
+    width: 130px;
+    font-weight: 200;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 2px solid rgba(255,255,255,0.25);
+}
+
+.que {
+    margin:  auto;
+    color: white;
+    width: 300px;
+    font-weight: 200;
+    text-align: center;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+.buttonwrap {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    margin-top: 20px;
+    height: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.rather {
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 50%;
+}
+
+#r0 {
+    background-color: #fff;
+    box-sizing: border-box;
+    border-right: 1px solid #230a41;
+}
+
+#r1 {
+    background-color: #fff;
+    border-left: 1px solid #230a41;
+    box-sizing: border-box;
+}
+
+.text {
+    text-align: center;
+    width: 100%;
+    padding-top: 27px;
+    color: #230a41;
+    font-size: 15px;
+}
+
+#ratebox {
+    position: absolute;
+    width: 100%;
+    float: left;
+    height: 45px;
+    bottom: 0px;
+    background-color: #230a41 ;
+}
+
+.rate {
+    position: relative;
+    width: 20%;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+}
+
+#firsthigh {
+    background-color: #20dbd5;
+}
+
+#first {
+    background-color: #20dbd5;
+    opacity: 0.70;
+    box-sizing: border-box;
+}
+
+#sec {
+    background-color: #fc2557;
+    opacity: 0.70;
+    box-sizing: border-box;
+}
+
+#sechigh {
+    background-color: #fc2557;
+}
+
+#logo {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background-image: url(../images/logo.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+#guide {
+    text-align: center;
+    color: white;
+    font-weight: 200;
+    width: 70%;
+    margin: auto;
+    font-size: 12px;
+    padding-top: 10px;
+    line-height: 1.8em
+}
+
+#gesture {
+    margin: auto;
+    width: 110px;
+    height: 50px;
+    margin-top: 25px;
+    background-image: url(../images/gest.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: white;
+    font-weight: 200;
+    opacity: 0.65;
+}
+
+#tie {
+   background-color: #bbb;
+}
+
+#input {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #230a41;
+    font-weight: 200;
+}
+
+
+
+#button {
+    position: relative;
+    background-color: #6d20c6;
+    width: 150px;
+    border-radius: 10px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    left: 50%;
+    margin-left: -75px;
+    text-align: center;
+    margin-top: 25px;
+    color: white;
+    cursor: pointer;
+    font-weight: 200;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.match {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    height: 70px;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 10px;
+}
+
+#ending {
+    position: relative;
+    height: 150px;
+    padding-top: 20px;
+}
+
+.formica {
+    float: left;
+    position: relative;
+    text-transform: capitalize;
+    padding:24px;
+    color: #230a41;
+}
+
+.percent {
+    position: relative;
+    float: right;
+    padding: 18px;
+    color: #6d20c6;
+    font-size: 25px;
+}

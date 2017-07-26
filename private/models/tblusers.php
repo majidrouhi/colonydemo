@@ -39,6 +39,8 @@
 
 			while ($row = $result -> fetch(PDO::FETCH_ASSOC)) $fetchedResult[] = $row;
 
+			if ($_user != null) $fetchedResult = $fetchedResult[0];
+
 			return $fetchedResult;
 		}
 

@@ -32,7 +32,7 @@
 		public static function header ($_params = [], $_sanitize = true)
 		{
 			$allowedParams = [];
-			$headers = getallheaders();
+			$headers = Common::getheaders();
 
 			foreach ($_params as $param) if (isset($headers[$param]))
 			{

@@ -47,14 +47,14 @@
 	define('NOW', date('Y/m/d H:i:s'));
 	define('EMAIL_VALIDATOR', '/^[\w\.\-]{1,64}\@[\w\.\-]{1,184}\.[a-zA-Z0-9]{1,4}$/');
 	define('DELIMITER', ',');
-	define('APPLICATION_TITLE', 'Colony Demo');
+	define('APPLICATION_TITLE', 'Colony App - Beta 2');
 	define('TOKEN_SECRET', 'aaaaaaaaaa');
 	define('LOGIN_TIMEOUT', 1800);
 	define('API_PREFIX', '_API');
 	define('VIEW_PREFIX', '_VIEW');
 	define('CHARSET', 'UTF-8');
 	define('TIME_ZONE', 'Asia/Tehran');
-	define('MAINTENANCE_MODE', false);
+	define('MAINTENANCE_MODE', true);
 	define('LOG_ERRORS', false);
 	define('LOG_ACTIONS', false);
 	define('VALID_IP_ADDRESS', '127.0.0.1,::1');
@@ -76,7 +76,7 @@
 
 	// Views
 	define('MAIN_VIEW', VIEWS_PATH . 'main.php');
-	define('QUESTIONS_VIEW', VIEWS_PATH . 'questions.php');
+	define('ENTER_VIEW', VIEWS_PATH . 'enter.php');
 	define('REPORT_VIEW', VIEWS_PATH . 'report.php');
 	define('MAINTENANCE_VIEW', VIEWS_PATH . 'maintenance.php');
 
@@ -87,6 +87,7 @@
 	define('REGISTER_API', APIS_PATH . 'register.php');
 	define('SETANSWER_API', APIS_PATH . 'setanswer.php');
 	define('GETDATA_API', APIS_PATH . 'getdata.php');
+	define('GETREPORT_API', APIS_PATH . 'getreport.php');
 
 	// Allowed Parameters
 	define('API_PARAMS', 'api');
@@ -116,8 +117,8 @@
 	// Database Identities
 	define('DB_HOST', 'localhost');
 	define('DB_PORT', 3306);
-	define('DB_USERNAME', 'admin');
-	define('DB_PASSWORD', 'Admin9203b!#');
+	define('DB_USERNAME', 'root');
+	define('DB_PASSWORD', '1');
 	define('DB_ChARSET', 'utf8');
 
 	// Databases
