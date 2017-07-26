@@ -48,7 +48,7 @@
 	define('EMAIL_VALIDATOR', '/^[\w\.\-]{1,64}\@[\w\.\-]{1,184}\.[a-zA-Z0-9]{1,4}$/');
 	define('DELIMITER', ',');
 	define('APPLICATION_TITLE', 'Colony App - Beta 2');
-	define('TOKEN_SECRET', 'aaaaaaaaaa');
+	define('TOKEN_SECRET', '4c061e6c9a7b16015e0847a12f41c835');
 	define('LOGIN_TIMEOUT', 1800);
 	define('API_PREFIX', '_API');
 	define('VIEW_PREFIX', '_VIEW');
@@ -77,16 +77,14 @@
 	// Views
 	define('MAIN_VIEW', VIEWS_PATH . 'main.php');
 	define('ENTER_VIEW', VIEWS_PATH . 'enter.php');
-	define('REPORT_VIEW', VIEWS_PATH . 'report.php');
 	define('MAINTENANCE_VIEW', VIEWS_PATH . 'maintenance.php');
 
 	// Registered APIs
 	define('GETQ_API', APIS_PATH . 'getq.php');
 	define('LOGIN_API', APIS_PATH . 'login.php');
-	define('LOGOUT_API', APIS_PATH . 'login.php');
+	define('LOGOUT_API', APIS_PATH . 'logout.php');
 	define('REGISTER_API', APIS_PATH . 'register.php');
 	define('SETANSWER_API', APIS_PATH . 'setanswer.php');
-	define('GETDATA_API', APIS_PATH . 'getdata.php');
 	define('GETREPORT_API', APIS_PATH . 'getreport.php');
 
 	// Allowed Parameters
