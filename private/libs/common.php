@@ -63,5 +63,25 @@
 
 			return $headers;
 		}
+
+		public static function quickSort ($_array, $_sortElement)
+		{
+			$length = count($_array);
+
+			if ($length <= 1) return $_array;
+			else
+			{
+				$pivot = $_array[0];
+				$left = $right = array();
+
+				for ($i = 1; $i < $length; $i++)
+				{
+					if ($_array[$i][$_sortElement] < $pivot[$_sortElement]) $left[] = $_array[$i];
+					else $right[] = $_array[$i];
+				}
+
+				return array_merge(self::quickSort($left, $_sortElement), array($pivot), self::quickSort($right, $_sortElement));
+			}
+		}
 	}
 ?>

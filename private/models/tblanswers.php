@@ -53,6 +53,15 @@
 			return $fetchedResult;
 		}
 
+		public function getCount ($_userId)
+		{
+			$where = Validation::isNumber($_userId) ? 'user_id = ' . $_userId : null;
+
+			$result = parent::_select(['COUNT(*)'], $where);
+
+			return $result -> fetchColumn();
+		}
+
 		public function update ($_answer, $_where)
 		{
 			return parent::_update([

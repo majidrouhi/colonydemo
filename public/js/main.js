@@ -87,7 +87,7 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 		$scope.reportShow = true;
 
 		$http({
-			url: appConfig.api + 'getdata',
+			url: appConfig.api + 'getreport',
 			method: 'GET',
 			headers: { 'Authorization': token }
 		}).then(function (response) {
@@ -107,6 +107,12 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 		}).then(function (response) {
 			if (response.status == 200) {
 				$scope.currentQ = $scope.currentQ + 1;
+
+				if ($scope.currentQ >= 5) {
+					var finishBtn = angular.element(document.querySelector('.finish'));
+
+					finishBtn.addClass('active');
+				}
 
 				$scope.showQuestion($scope.currentQ);
 			}

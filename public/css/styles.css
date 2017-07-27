@@ -42,7 +42,7 @@ a {
     width: 90%;
     left: 5%;
     margin-top: 20px;
-    height: 120px;
+    height: 110px;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -69,7 +69,7 @@ a {
 .text {
     text-align: center;
     width: 100%;
-    padding-top: 27px;
+    padding-top: 22px;
     color: #230a41;
     font-size: 15px;
 }
@@ -119,7 +119,7 @@ a {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
@@ -129,7 +129,7 @@ a {
     font-weight: 200;
     width: 70%;
     margin: auto;
-    font-size: 12px;
+    font-size: 11px;
     padding-top: 10px;
     line-height: 1.8em
 }
@@ -215,17 +215,45 @@ a {
 }
 
 .formica {
-    float: left;
     position: relative;
     text-transform: capitalize;
-    padding:24px;
+    padding-top: 15px;
+    padding-left: 15px;
     color: #230a41;
 }
 
 .percent {
-    position: relative;
-    float: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
     padding: 18px;
     color: #6d20c6;
     font-size: 25px;
+}
+
+.answers {
+    position: relative;
+    text-transform: capitalize;
+    padding-top: 3px;
+    padding-left: 15px;
+    color: #777;
+    font-size: 13px;
+}
+
+
+.finish {
+    color: rgba(255,255,255,0.5);
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    padding: 8px 12px;;
+    border-radius: 10px;
+    font-size: 14px;
+    border: 2px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.active {
+    color: white;
 }

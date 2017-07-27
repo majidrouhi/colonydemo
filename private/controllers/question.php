@@ -12,6 +12,8 @@
 		{
 			$result = $this -> question -> get();
 
+			shuffle($result);
+
 			return $result;
 		}
 	}

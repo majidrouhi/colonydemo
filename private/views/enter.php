@@ -7,7 +7,8 @@
             </section>
             <section ng-show="questionsShow">
                 <div class="title">Would you rather</div>
-                <div class="que">{{currentQ + 1}} / 35</div>
+                <div class="finish" ng-click="start(name)">FINISH</div>
+                <div class="que">Please answer minimum 5 questions of 35: {{currentQ + 1}}</div>
                 <div class="buttonwrap">
                     <div class="rather" id="r0">
                         <div id="optLeft" class="text">{{option1}}</div>
@@ -32,7 +33,8 @@
                 <section ng-repeat="data in userReport">
                     <div class="match">
                         <div class="formica">{{data.name}}</div>
-                        <div class="percent">{{data.totalPercent}}</div>
+                        <div class="percent">% {{data.totalPercent}}</div>
+                        <div class="answers">{{data.similarCount}} Common Questions</div>
                     </div>
                 </section>
                 <div id="ending">

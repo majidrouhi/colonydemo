@@ -59,7 +59,7 @@
 
 			foreach ($answers as $index => $answer)
 			{
-				$dataset = $this -> answer -> getByQuestion($answer['question_id'], ['user_id', 'first_name', 'answer']);
+				$dataset = $this -> answer -> getByQuestion($answer['question_id'], ['user_id', 'answer']);
 
 				foreach ($dataset as $data)
 				{
@@ -92,6 +92,7 @@
 			foreach($_data as $userId => $w)
 			{
 				$name = $this -> user -> get($userId)['first_name'];
+				$totalQuestions = $this -> answer -> getCount($userId);
 
 				$answerWeight = array_sum($w);
 				$similarCount = count($w);
@@ -99,10 +100,10 @@
 				$answerPercent = ($answerWeight * 100) / $maxWeight;
 				$questionPercent = ($questionWeight * 100) / 1;
 				$totalPercent = round((($answerPercent + $questionPercent) * 100) / 200, 2);
-				$info[$userId] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => $answerPercent, 'questionWeight' => $questionWeight, 'questionPercent' => $questionPercent, 'totalPercent' => $totalPercent, 'similarCount' => $similarCount];
+				$info[] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => $answerPercent, 'questionWeight' => $questionWeight, 'questionPercent' => $questionPercent, 'totalPercent' => $totalPercent, 'totalQuestions' => $totalQuestions, 'similarCount' => $similarCount];
 			}
 
-			return $info;
+			return array_reverse(Common::quickSort($info, 'totalPercent'));
 		}
 
 		private static function getPoint ($_sample, $_answer)
