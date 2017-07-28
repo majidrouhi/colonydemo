@@ -80,7 +80,6 @@ a {
     float: left;
     height: 45px;
     bottom: 0px;
-    background-color: #230a41 ;
 }
 
 .rate {
@@ -92,30 +91,32 @@ a {
 }
 
 #firsthigh {
-    background-color: #20dbd5;
+    background-color: #6d20c6;
+    opacity: 0.9;
 }
 
 #first {
-    background-color: #20dbd5;
-    opacity: 0.70;
+    background-color: #6d20c6;
+    opacity: 0.60;
     box-sizing: border-box;
 }
 
 #sec {
-    background-color: #fc2557;
-    opacity: 0.70;
+    background-color: #6d20c6;
+    opacity: 0.60;
     box-sizing: border-box;
 }
 
 #sechigh {
-    background-color: #fc2557;
+    background-color: #6d20c6;
+    opacity: 0.9;
 }
 
 #logo {
     position: relative;
     width: 100%;
     height: 100px;
-    background-image: url(../images/logo.svg);
+    background-image: url(../images//logo.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -136,7 +137,7 @@ a {
 
 #gesture {
     margin: auto;
-    width: 110px;
+    width: 150px;
     height: 50px;
     margin-top: 25px;
     background-image: url(../images/gest.svg);
@@ -217,7 +218,7 @@ a {
 .formica {
     position: relative;
     text-transform: capitalize;
-    padding-top: 15px;
+    padding-top:15px;
     padding-left: 15px;
     color: #230a41;
 }

@@ -8,7 +8,7 @@
             <section ng-show="questionsShow">
                 <div class="title">Would you rather</div>
                 <div class="finish" ng-click="start(name)">FINISH</div>
-                <div class="que">Please answer minimum 5 questions of 35: {{currentQ + 1}}</div>
+                <div class="que">Please answer minimum 5 questions / {{currentQ + 1}}</div>
                 <div class="buttonwrap">
                     <div class="rather" id="r0">
                         <div id="optLeft" class="text">{{option1}}</div>
@@ -38,7 +38,7 @@
                     </div>
                 </section>
                 <div id="ending">
-                    <div id="guide"><t class="bold">Thanks for participating in our demo app.</t><br> Please help us to improve our app if you have any suggestions or questions feel free to contact us by<br><a href="mailto:report@thecolonyapp.com" target="_blank" >report[at]mython.ir</a></div>
+                    <div id="guide"><t class="bold">Thanks for participating in our demo app.</t><br> Please help us to improve our app if you have any suggestions or questions feel free to contact us by<br><a href="mailto:report@mython.ir" target="_blank" >report@mython.ir</a></div>
                 </div>
             </section>
         </div>

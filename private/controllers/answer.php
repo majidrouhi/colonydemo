@@ -65,7 +65,7 @@
 				{
 					$point = self::getPoint($answer['answer'], $data['answer']);
 					$weight = $point * $questions[$answer['question_id'] - 1]['weight'];
- 					$weights[$data['user_id']][$answer['question_id']] = $weight;
+					$weights[$data['user_id']][$answer['question_id']] = $weight;
 				}
 			}
 
@@ -100,7 +100,8 @@
 				$answerPercent = ($answerWeight * 100) / $maxWeight;
 				$questionPercent = ($questionWeight * 100) / 1;
 				$totalPercent = round((($answerPercent + $questionPercent) * 100) / 200, 2);
-				$info[] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => $answerPercent, 'questionWeight' => $questionWeight, 'questionPercent' => $questionPercent, 'totalPercent' => $totalPercent, 'totalQuestions' => $totalQuestions, 'similarCount' => $similarCount];
+
+				if ($userId != $_userId) $info[] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => $answerPercent, 'questionWeight' => $questionWeight, 'questionPercent' => $questionPercent, 'totalPercent' => $totalPercent, 'totalQuestions' => $totalQuestions, 'similarCount' => $similarCount];
 			}
 
 			return array_reverse(Common::quickSort($info, 'totalPercent'));
