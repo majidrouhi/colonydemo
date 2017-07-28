@@ -9,11 +9,14 @@ app.constant('appConfig', {
 
 app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 	var qCount = 0;
+	var totalQuestions = 0;
 	var token = null;
 	var questions = null;
 
 	$scope.currentQ = 0;
+	$scope.answeredCount = 0;
 	$scope.loginShow = true;
+	$scope.dashboardShow = false;
 	$scope.questionsShow = false;
 	$scope.reportShow = false;
 
@@ -24,15 +27,15 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 					url: appConfig.api + 'register/' + name,
 					method: 'GET'
 				}).then(function (response) {
-					$scope.login(name, response.status);
+					$scope.login(name, null);
 				}, function (err) {
-					$scope.login(name, err.status);
+					$scope.login(name, null);
 				});
 			}
 		}
 	};
 
-	$scope.login = function (name, status) {
+	$scope.login = function (name, action) {
 		$http({
 			url: appConfig.api + 'login/' + name,
 			method: 'GET'
@@ -43,12 +46,7 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 				if (token.length != 0) {
 					$scope.loginShow = false;
 
-					if (status == 200) {
-						$scope.questionsShow = true;
-
-						$scope.getQuestions();
-					}
-					else if (status == 409) $scope.report();
+					$scope.getQuestions();
 				}
 			}
 		}, function (err) {
@@ -56,16 +54,36 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 		});
 	};
 
+	$scope.redirectTo = function (action) {
+		$scope.dashboardShow = false;
+
+		if ((qCount == totalQuestions && totalQuestions > 0) || action == 'question') {
+			$scope.questionsShow = true;
+
+			$scope.showQuestion($scope.currentQ);
+		}
+		else if (qCount == 0 || action == 'report') {
+			$scope.reportShow = true;
+
+			$scope.report();
+		}
+		else $scope.dashboardShow = true;
+	}
+
 	$scope.getQuestions = function () {
 		$http({
 			url: appConfig.api + 'getq',
-			method: 'GET'
+			method: 'GET',
+			headers: { 'Authorization': token }
 		}).then(function (response) {
 			if (response.status == 200) {
-				questions = response.data;
+				questions = response.data.questions;
+				totalQuestions = response.data.totalCount;
 				qCount = questions.length;
 
-				$scope.showQuestion($scope.currentQ);
+				$scope.answeredCount = totalQuestions - qCount;
+
+				$scope.redirectTo(null);
 			}
 		}, function (err) {
 			console.log(err);
@@ -78,12 +96,15 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 				$scope.option1 = questions[qId].option1;
 				$scope.option2 = questions[qId].option2;
 			}
+
+			$scope.checkFinish();
 		}
 		else $scope.report();
 	};
 
 	$scope.report = function () {
 		$scope.questionsShow = false;
+		$scope.menuShow = false;
 		$scope.reportShow = true;
 
 		$http({
@@ -108,16 +129,18 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 			if (response.status == 200) {
 				$scope.currentQ = $scope.currentQ + 1;
 
-				if ($scope.currentQ >= 5) {
-					var finishBtn = angular.element(document.querySelector('.finish'));
-
-					finishBtn.addClass('active');
-				}
-
 				$scope.showQuestion($scope.currentQ);
 			}
 		}, function (err) {
 			console.log(err);
 		});
+	};
+
+	$scope.checkFinish = function () {
+		if ($scope.currentQ + $scope.answeredCount >= 5) {
+			var finishBtn = angular.element(document.querySelector('.finish'));
+
+			finishBtn.addClass('active');
+		}
 	};
 });

@@ -1,5 +1,5 @@
 <?php
-	http_response_code(BAD_REQUEST);
+	if (!User::authorize()) die();
 
 	$question = new Question();
 

@@ -32,6 +32,20 @@
 			return $fetchedResult;
 		}
 
+		public function getByUser ($_userId)
+		{
+			$where = null;
+			$fetchedResult = [];
+
+			$where = Validation::isNumber($_userId) ? 'id NOT IN (SELECT question_id from answers WHERE user_id = ' . $_userId . ')' : null;
+
+			$result = parent::_select(['*'], $where);
+
+			while ($row = $result -> fetch(PDO::FETCH_ASSOC)) $fetchedResult[] = $row;
+
+			return $fetchedResult;
+		}
+
 		public function getCount ($_category = null)
 		{
 			if ($_category != null) $where = Validation::isNumber($_category) ? 'category = ' . $_category : null;

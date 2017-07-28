@@ -29,15 +29,26 @@
 			return $result;
 		}
 
-		public function getanswers ($_userId)
+		public function getAnswers ()
 		{
+			$userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+
 			$questions = $this -> question -> get();
-			$answers = $this -> answer -> getByUser($_userId, ['question_id', 'answer']);
+			$answers = $this -> answer -> getByUser($userId, ['question_id', 'answer']);
 
 			foreach ($answers as $answer) $result[$answer['question_id']] = $answer['answer'];
 			foreach ($questions as $index => $q) if (!isset($result[$q['id']])) $result[$q['id']] = '-';
 
 			return $result;
+		}
+
+		public function getAnswersCount ()
+		{
+			$userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+
+			$answeredCount = $this -> question -> getCount();
+
+			return ['answeredCount' => $answeredCount];
 		}
 
 		public function get ($_userId = null)

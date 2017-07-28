@@ -5,10 +5,15 @@
                 <input id="input" autocorrect="off" spellcheck="false" autocapitalize="off" autofocus="true" placeholder="Please enter your full name" type="text" ng-model="name">
                 <div id="button" ng-click="start(name)">Start Demo</div>
             </section>
+            <section ng-show="dashboardShow">
+                <div class="que">Your name has already been registered, please choose your next action.</div>
+                <div id="button" ng-click="redirectTo('question')">Continue</div>
+                <div id="button" ng-click="redirectTo('report')">Report</div>
+            </section>
             <section ng-show="questionsShow">
                 <div class="title">Would you rather</div>
-                <div class="finish" ng-click="start(name)">FINISH</div>
-                <div class="que">Please answer minimum 5 questions / {{currentQ + 1}}</div>
+                <div class="finish" ng-click="redirectTo('report')">FINISH</div>
+                <div class="que">Please answer minimum 5 questions / {{answeredCount + currentQ + 1}}</div>
                 <div class="buttonwrap">
                     <div class="rather" id="r0">
                         <div id="optLeft" class="text">{{option1}}</div>
@@ -28,7 +33,7 @@
                 <div id="guide">By tapping on color buttons tell us <br>how much would you rather each choice.<br><t class="bold">If you like both simply press GRAY button.</t></div>
             </section>
             <section ng-show="reportShow">
-            <div class="finish active" ng-click="start(name)">REFRESH</div>
+            <div class="finish active" ng-click="redirectTo('report')">REFRESH</div>
                 <div class="title">Your Matches</div>
                 <div class="que">Here are like-minded people around you</div>
                 <section ng-repeat="data in userReport">
