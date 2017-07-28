@@ -28,6 +28,7 @@
                 <div id="guide">By tapping on color buttons tell us <br>how much would you rather each choice.<br><t class="bold">If you like both simply press GRAY button.</t></div>
             </section>
             <section ng-show="reportShow">
+            <div class="finish active" ng-click="start(name)">REFRESH</div>
                 <div class="title">Your Matches</div>
                 <div class="que">Here are like-minded people around you</div>
                 <section ng-repeat="data in userReport">
