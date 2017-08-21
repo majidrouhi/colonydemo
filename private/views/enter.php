@@ -40,7 +40,7 @@
                     <div class="match">
                         <div class="formica">{{data.name}}</div>
                         <div class="percent">% {{data.totalPercent}}</div>
-                        <div class="answers">{{data.similarCount}} Common Questions</div>
+                        <div class="answers">{{data.similarCount}} Common Questions / X: {{data.answerPercent}} / Q: {{data.questionPercent}}</div>
                     </div>
                 </section>
                 <div id="ending">

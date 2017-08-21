@@ -99,7 +99,7 @@
 				$questionPercent = ($similarCount * 200) / ($maxCount + $totalQuestions);
 				$totalPercent = round((($answerPercent * $similarCount) + $questionPercent) / ($similarCount + 1) , 2);
 
-				if ($userId != $_userId) $info[] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => $answerPercent, 'questionWeight' => $questionWeight, 'questionPercent' => $questionPercent, 'totalPercent' => $totalPercent, 'totalQuestions' => $totalQuestions, 'similarCount' => $similarCount];
+				if ($userId != $_userId) $info[] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => round($answerPercent, 2), 'questionWeight' => $questionWeight, 'questionPercent' => round($questionPercent, 2), 'totalPercent' => $totalPercent, 'totalQuestions' => $totalQuestions, 'similarCount' => $similarCount];
 			}
 
 			return array_reverse(Common::quickSort($info, 'totalPercent'));
@@ -111,7 +111,7 @@
 				1 => [1 => 1, 2 => 0.875, 3 => 0.25, 4 => 0.125, 5 => 0],
 				2 => [1 => 0.875, 2 => 1, 3 => 0.5, 4 => 0.25, 5 => 0.125],
 				3 => [1 => 0.25, 2 => 0.5, 3 => 1, 4 => 0.5, 5 => 0.25],
-				4 => [1 => 0.125, 2 => 0.25, 3 => 0.50, 4 => 1, 5 => 0.875],
+				4 => [1 => 0.125, 2 => 0.25, 3 => 0.5, 4 => 1, 5 => 0.875],
 				5 => [1 => 0, 2 => 0.125, 3 => 0.25, 4 => 0.875, 5 => 1]
 			];
 
