@@ -92,8 +92,8 @@
 				$totalQuestions = $this -> answer -> getCount($userId);
 
 				$answerWeight = array_sum($w);
-				$similarCount = count($w);
 				$answerPercent = ($answerWeight * 100) / $similarCount;
+				$similarCount = count($w);
 				$questionPercent = ($similarCount * 200) / ($maxCount + $totalQuestions);
 				$totalPercent = round((($answerPercent * $similarCount) + $questionPercent) / ($similarCount + 1) , 2);
 
