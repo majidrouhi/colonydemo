@@ -66,7 +66,6 @@
 		private function getWeights ($_userId)
 		{
 			$answers = $this -> answer -> getByUser($_userId, ['question_id', 'answer']);
-			$questions = $this -> question -> get();
 
 			foreach ($answers as $index => $answer)
 			{
@@ -75,8 +74,7 @@
 				foreach ($dataset as $data)
 				{
 					$point = self::getPoint($answer['answer'], $data['answer']);
-					$weight = $point * 1;
-					$weights[$data['user_id']][$answer['question_id']] = $weight;
+					$weights[$data['user_id']][$answer['question_id']] = $point;
 				}
 			}
 
@@ -95,7 +93,7 @@
 
 				$answerWeight = array_sum($w);
 				$similarCount = count($w);
-				$answerPercent = ($answerWeight * 200) / ($maxWeight + ($totalQuestions * 1));
+				$answerPercent = ($answerWeight * 100) / $similarCount;
 				$questionPercent = ($similarCount * 200) / ($maxCount + $totalQuestions);
 				$totalPercent = round((($answerPercent * $similarCount) + $questionPercent) / ($similarCount + 1) , 2);
 
