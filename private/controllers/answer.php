@@ -95,7 +95,7 @@
 				$answerPercent = ($answerWeight * 100) / $similarCount;
 				$similarCount = count($w);
 				$questionPercent = ($similarCount * 200) / ($maxCount + $totalQuestions);
-				$totalPercent = round((($answerPercent * $similarCount) + $questionPercent) / ($similarCount + 1) , 2);
+				$totalPercent = round((($answerPercent * ($similarCount)) + $questionPercent * 5) / ($similarCount + 5) , 2);
 
 				if ($userId != $_userId) $info[] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => round($answerPercent, 2), 'questionWeight' => $questionWeight, 'questionPercent' => round($questionPercent, 2), 'totalPercent' => $totalPercent, 'totalQuestions' => $totalQuestions, 'similarCount' => $similarCount];
 			}
