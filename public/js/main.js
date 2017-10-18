@@ -4,7 +4,7 @@ var app = angular.module('colonydemo', []);
 app.constant('appConfig', {
 	appversion: '0.0.1',
 	appproducer: 'Mr. Python',
-	api: 'http://colony.localhost/api/'
+	api: 'http://colonydemo.localhost/api/'
 });
 
 app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {

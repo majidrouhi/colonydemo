@@ -1,119 +1,148 @@
 <?php
-	class Answer
-	{
-		private $answer, $user, $question;
+class Answer
+{
+    private $answer, $user, $question;
 
-		public function __construct ()
-		{
-			$this -> answer = new TblAnswers();
-			$this -> user = new TblUsers();
-			$this -> question = new TblQuestions();
-		}
+    public function __construct()
+    {
+        $this -> answer = new TblAnswers();
+        $this -> user = new TblUsers();
+        $this -> question = new TblQuestions();
+    }
 
-		public function set ($_params)
-		{
-			$point = 1;
-			$userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+    public function set($_params)
+    {
+        $point = 1;
+        $userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
 
-			$result = $this -> answer -> insert($userId, $_params['questionId'], $_params['answer'], $point);
+        $result = $this -> answer -> insert($userId, $_params['questionId'], $_params['answer'], $point);
 
-			return $result;
-		}
+        return $result;
+    }
 
-		public function getAll ()
-		{
-			$users = $this -> user -> get();
+    public function get($_userId = null, $_answers = null)
+    {
+        $userId = $_userId;
 
-			foreach ($users as $user) $result[$user['id']] = ['name' => $user['first_name'], 'data' => $this -> get($user['id']) /*, 'answers' => $this -> getanswers($user['id']) */];
+        if ((string) $userId == null) {
+            $userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+        }
 
-			return $result;
-		}
+        $weights = $this -> getWeights($userId, $_answers);
+        $report = $this -> analyzData($weights, $userId);
 
-		public function getAnswers ()
-		{
-			$userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+        return $report;
+    }
 
-			$questions = $this -> question -> get();
-			$answers = $this -> answer -> getByUser($userId, ['question_id', 'answer']);
+    public function getAnswersCount()
+    {
+        $userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
 
-			foreach ($answers as $answer) $result[$answer['question_id']] = $answer['answer'];
-			foreach ($questions as $index => $q) if (!isset($result[$q['id']])) $result[$q['id']] = '-';
+        $answeredCount = $this -> question -> getCount();
 
-			return $result;
-		}
+        return ['answeredCount' => $answeredCount];
+    }
 
-		public function getAnswersCount ()
-		{
-			$userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+    private function getWeights($_userId, $_answers = null)
+    {
+        $answers = $_answers;
 
-			$answeredCount = $this -> question -> getCount();
+        if ($_answers == null) {
+            $answers = $this -> answer -> getByUser($_userId, ['question_id', 'answer']);
+        }
 
-			return ['answeredCount' => $answeredCount];
-		}
+        foreach ($answers as $index => $answer) {
+            $dataset = $this -> answer -> getByQuestion($answer['question_id'], ['user_id', 'answer']);
 
-		public function get ($_userId = null)
-		{
-			$userId = $_userId;
+            if ($_userId == 0) {
+                $weights[0][$answer['question_id']] = 1;
+            }
 
-			if ($_userId == null) $userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+            foreach ($dataset as $data) {
+                $point = self::getPoint($answer['answer'], $data['answer']);
+                $weights[$data['user_id']][$answer['question_id']] = $point;
+            }
+        }
 
-			$weights = $this -> getWeights($userId);
-			$report = $this -> analyzData($weights, $userId);
+        return $weights;
+    }
 
-			return $report;
-		}
+    private function analyzData($_data, $_userId)
+    {
+        $maxWeight = array_sum($_data[$_userId]);
+        $maxCount = count($_data[$_userId]);
 
-		private function getWeights ($_userId)
-		{
-			$answers = $this -> answer -> getByUser($_userId, ['question_id', 'answer']);
+        foreach ($_data as $userId => $w) {
+            $name = $this -> user -> get($userId)['first_name'];
+            $totalQuestions = $this -> answer -> getCount($userId);
 
-			foreach ($answers as $index => $answer)
-			{
-				$dataset = $this -> answer -> getByQuestion($answer['question_id'], ['user_id', 'answer']);
+            $answerWeight = array_sum($w);
+            $similarCount = count($w);
+            $answerPercent = ($answerWeight * 100) / $similarCount;
+            $questionPercent =  ($similarCount * 200) / ($maxCount + $totalQuestions);
+            $totalPercent = round((($answerPercent * ($similarCount)) + $questionPercent * 5) / ($similarCount + 5), 2);
 
-				foreach ($dataset as $data)
-				{
-					$point = self::getPoint($answer['answer'], $data['answer']);
-					$weights[$data['user_id']][$answer['question_id']] = $point;
-				}
-			}
+            if ($userId != $_userId) {
+                $info[] = [
+                'user_id' => $userId,
+                'name' => $name,
+                'answerWeight' => $answerWeight,
+                'answerPercent' => round($answerPercent, 2),
+                'questionPercent' => round($questionPercent, 2),
+                'totalPercent' => $totalPercent,
+                'totalQuestions' => $totalQuestions,
+                'similarCount' => $similarCount];
+            }
+        }
 
-			return $weights;
-		}
+        return array_reverse(Common::quickSort($info, 'totalPercent'));
+    }
 
-		private function analyzData ($_data, $_userId)
-		{
-			$maxWeight = array_sum($_data[$_userId]);
-			$maxCount = count($_data[$_userId]);
+    private static function getPoint($_sample, $_answer)
+    {
+        $statusSet = [
+            1 => [1 => 1, 2 => 0.875, 3 => 0.25, 4 => 0.125, 5 => 0],
+            2 => [1 => 0.875, 2 => 1, 3 => 0.5, 4 => 0.25, 5 => 0.125],
+            3 => [1 => 0.25, 2 => 0.5, 3 => 1, 4 => 0.5, 5 => 0.25],
+            4 => [1 => 0.125, 2 => 0.25, 3 => 0.5, 4 => 1, 5 => 0.875],
+            5 => [1 => 0, 2 => 0.125, 3 => 0.25, 4 => 0.875, 5 => 1]
+        ];
 
-			foreach($_data as $userId => $w)
-			{
-				$name = $this -> user -> get($userId)['first_name'];
-				$totalQuestions = $this -> answer -> getCount($userId);
+        return $statusSet[$_sample][$_answer];
+    }
 
-				$answerWeight = array_sum($w);
-				$answerPercent = ($answerWeight * 100) / $similarCount;
-				$similarCount = count($w);
-				$questionPercent = ($similarCount * 200) / ($maxCount + $totalQuestions);
-				$totalPercent = round((($answerPercent * ($similarCount)) + $questionPercent * 5) / ($similarCount + 5) , 2);
+    public function getSimpatico()
+    {
+        $users = $this -> user -> get();
+        $user_idd=92;
+        // foreach ($users as $user) {
+        if (!is_null($this -> get($user_idd)[0]['totalPercent'])) {
+            $commonQ = $this -> getCommonQuestions($user_idd, $this -> get($user_idd)[0]['user_id']);
+            $result[$user_idd] = $this -> get(0, $commonQ);
 
-				if ($userId != $_userId) $info[] = ['name' => $name, 'answerWeight' => $answerWeight, 'answerPercent' => round($answerPercent, 2), 'questionWeight' => $questionWeight, 'questionPercent' => round($questionPercent, 2), 'totalPercent' => $totalPercent, 'totalQuestions' => $totalQuestions, 'similarCount' => $similarCount];
-			}
+            array_splice($result[$user_idd], 0, 1);
+            array_splice($result[$user_idd], 0, 1);
 
-			return array_reverse(Common::quickSort($info, 'totalPercent'));
-		}
+            $result[$user_idd] = $result[$user_idd][0];
+        }
+        // }
 
-		private static function getPoint ($_sample, $_answer)
-		{
-			$statusSet = [
-				1 => [1 => 1, 2 => 0.875, 3 => 0.25, 4 => 0.125, 5 => 0],
-				2 => [1 => 0.875, 2 => 1, 3 => 0.5, 4 => 0.25, 5 => 0.125],
-				3 => [1 => 0.25, 2 => 0.5, 3 => 1, 4 => 0.5, 5 => 0.25],
-				4 => [1 => 0.125, 2 => 0.25, 3 => 0.5, 4 => 1, 5 => 0.875],
-				5 => [1 => 0, 2 => 0.125, 3 => 0.25, 4 => 0.875, 5 => 1]
-			];
+        return $result;
+    }
 
-			return $statusSet[$_sample][$_answer];
-		}
-	}
-?>
+    private function getCommonQuestions($_user1, $_user2)
+    {
+        $user1Questions = $this -> answer -> getByUser($_user1, ['question_id', 'answer']);
+        $user2Questions = $this -> answer -> getByUser($_user2, ['question_id', 'answer']);
+
+        foreach ($user1Questions as $id => $answer) {
+            $point = self::getPoint($answer['answer'], $user2Questions[$id]['answer']);
+
+            if ($point == 1 || $point == 0.875) {
+                $commonQuestions[$id] = $answer;
+            }
+        }
+
+        return $commonQuestions;
+    }
+}

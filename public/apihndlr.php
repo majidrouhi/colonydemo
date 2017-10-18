@@ -1,24 +1,24 @@
 <?php
-	require_once '../private/initialize.php';
+require_once '../private/initialize.php';
 
-	http_response_code(BAD_REQUEST);
+http_response_code(BAD_REQUEST);
 
-	try
-	{
-		Maintenance::checkIP();
+try {
+    Maintenance::checkIP();
 
-		$allowedParams = explode(DELIMITER, API_PARAMS);
+    $allowedParams = explode(DELIMITER, API_PARAMS);
 
-		$params = Validation::get($allowedParams);
+    $params = Validation::get($allowedParams);
 
-		if (!$params) die();
+    if (!$params) {
+        die();
+    }
 
-		$api = constant(strtoupper($params[$allowedParams[0]]) . API_PREFIX);
+    $api = constant(strtoupper($params[$allowedParams[0]]) . API_PREFIX);
 
-		if (!@include_once $api) throw new Exception(API_MSG . ' (' . $api . ')');
-	}
-	catch (Exception $ex)
-	{
-		Maintenance::handleExceptions($ex);
-	}
-?>
+    if (!@include_once $api) {
+        throw new Exception(API_MSG . ' (' . $api . ')');
+    }
+} catch (Exception $ex) {
+    Maintenance::handleExceptions($ex);
+}

@@ -1,32 +1,31 @@
 <?php
-	class Question
-	{
-		private $question;
+class Question
+{
+    private $question;
 
-		public function __construct ()
-		{
-			$this -> question = new TblQuestions();
-		}
+    public function __construct()
+    {
+        $this -> question = new TblQuestions();
+    }
 
-		public function getAll ()
-		{
-			$result = $this -> question -> get();
+    public function getAll()
+    {
+        $result = $this -> question -> get();
 
-			shuffle($result);
+        shuffle($result);
 
-			return $result;
-		}
+        return $result;
+    }
 
-		public function get ()
-		{
-			$userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+    public function get()
+    {
+        $userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
 
-			$totalCount = $this -> question -> getCount();
-			$result = $this -> question -> getByUser($userId);
+        $totalCount = $this -> question -> getCount();
+        $result = $this -> question -> getByUser($userId);
 
-			shuffle($result);
+        shuffle($result);
 
-			return ['questions' => $result, 'totalCount' => $totalCount];
-		}
-	}
-?>
+        return ['questions' => $result, 'totalCount' => $totalCount];
+    }
+}

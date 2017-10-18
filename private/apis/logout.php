@@ -1,9 +1,12 @@
 <?php
-	if (!User::authorize()) die();
+if (!User::authorize()) {
+    die();
+}
 
-	$user = new User();
+    $user = new User();
 
-	if ($user -> logout($token)) http_response_code(OK);
+if ($user -> logout($token)) {
+    http_response_code(OK);
+}
 
-	die();
-?>
+die();
