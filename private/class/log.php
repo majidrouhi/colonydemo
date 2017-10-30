@@ -8,10 +8,24 @@ class Log
         $trace = self::parseErrorTrace($_exception);
 
         if ($_mode == FILE) {
-            self::insertToFile($_file, $_function, $_line, $_exception -> getmessage(), EXCEPTION, $trace);
+            self::insertToFile(
+                $_file,
+                $_function,
+                $_line,
+                $_exception -> getmessage(),
+                EXCEPTION,
+                $trace
+            );
         } elseif ($_mode == DB) {
             $this -> log = new TblLogs();
-            $this -> log -> insert($_file, $_function, $_line, $_exception -> getmessage(), $trace, EXCEPTION);
+            $this -> log -> insert(
+                $_file,
+                $_function,
+                $_line,
+                $_exception -> getmessage(),
+                $trace,
+                EXCEPTION
+            );
         }
     }
 
@@ -55,6 +69,7 @@ class Log
             'Message: ' . Validation::sanitizeValue($_message) . PHP_EOL .
             'Trace: ' . Validation::sanitizeValue($_trace) . PHP_EOL .
             'Type: ' . $_type . PHP_EOL .
-            '---------------------------------------' . PHP_EOL, 3, ($_type == EXCEPTION) ? E_LOG_FILE : A_LOG_FILE);
+            '---------------------------------------' .
+            PHP_EOL, 3, ($_type == EXCEPTION) ? E_LOG_FILE : A_LOG_FILE);
     }
 }

@@ -5,7 +5,7 @@ if (!User::authorize()) {
 
 $answer = new Answer();
 
-$result = $answer -> get(1);
+$result = $answer -> get();
 
 if ($result) {
     http_response_code(OK);

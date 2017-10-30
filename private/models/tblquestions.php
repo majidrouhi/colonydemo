@@ -41,7 +41,8 @@ final class TblQuestions extends DbActionTemplate
         $where = null;
         $fetchedResult = [];
 
-        $where = Validation::isNumber($_userId) ? 'id NOT IN (SELECT question_id from answers WHERE user_id = ' . $_userId . ')' : null;
+        $where = Validation::isNumber($_userId) ?
+        'id NOT IN (SELECT question_id from answers WHERE user_id = ' . $_userId . ')' : null;
 
         $result = parent::_select(['*'], $where);
 

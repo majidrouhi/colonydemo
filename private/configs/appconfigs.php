@@ -117,7 +117,7 @@
     define('DB_HOST', 'localhost');
     define('DB_PORT', 3306);
     define('DB_USERNAME', 'colonydemo_user');
-    define('DB_PASSWORD', 'colonydemo_pass');
+    define('DB_PASSWORD', 'r1gYZCcYfDF2lDeR');
     define('DB_CHARSET', 'utf8');
 
     // Databases

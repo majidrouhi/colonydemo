@@ -6,8 +6,15 @@ final class TblLogs extends DbActionTemplate
         parent::__construct(DB_LOG, TBL_LOGS);
     }
 
-    public function insert($_file = null, $_function = null, $_line = null, $_message = null, $_trace = null, $_type = null)
-    {
+    public function insert(
+        $_file = null,
+        $_function = null,
+        $_line = null,
+        $_message = null,
+        $_trace = null,
+        $_type = null
+    ) {
+
         return parent::_insert([
             'file' => $_file,
             'function' => $_function,
@@ -24,7 +31,11 @@ final class TblLogs extends DbActionTemplate
 
     public function get($_whereStr = null, $_from = 1)
     {
-        $result = parent::_select(['*'], $_whereStr, $_from . ', ' . RESULT_COUNT_PER_REQUEST, 'insert_datetime DESC') -> fetch(PDO::FETCH_ASSOC);
+        $result = parent::_select(
+            ['*'],
+            $_whereStr,
+            $_from . ', ' . RESULT_COUNT_PER_REQUEST,
+            'insert_datetime DESC') -> fetch(PDO::FETCH_ASSOC);
 
         while ($row = $result -> fetch(PDO::FETCH_ASSOC)) {
             $fetchedResult[] = $row;

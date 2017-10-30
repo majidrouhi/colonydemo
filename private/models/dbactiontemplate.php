@@ -3,7 +3,12 @@ interface iDbActionTemplate
 {
     public function _insert($_params);
     public function _update($_params, $_whereStr = null);
-    public function _select($_params = ['*'], $_whereStr = null, $_limitStr = null, $_orderbyStr = null);
+    public function _select(
+        $_params = ['*'],
+        $_whereStr = null,
+        $_limitStr = null,
+        $_orderbyStr = null
+    );
     public function _delete($_whereStr = null);
 }
 
@@ -34,7 +39,10 @@ class DbActionTemplate implements iDbActionTemplate
             $fieldsName[] = $fieldName;
         }
 
-        $iQuery = 'INSERT INTO ' . $this -> tableName . '(' . implode(DELIMITER, $fieldsName) . ') VALUES (:' . implode(DELIMITER . ':', $fieldsName) . ');';
+        $iQuery = 'INSERT INTO ' .
+        $this -> tableName . '(' .
+        implode(DELIMITER, $fieldsName) . ') VALUES (:' .
+        implode(DELIMITER . ':', $fieldsName) . ');';
 
         return (bool) $this -> dbh -> execute($iQuery, $params);
     }
@@ -53,25 +61,41 @@ class DbActionTemplate implements iDbActionTemplate
             $updateStr[] = $fieldName . ' = :' . $fieldName;
         }
 
-        $uQuery = 'UPDATE ' . $this -> tableName . ' SET ' . implode(DELIMITER, $updateStr) . (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) . ';';
+        $uQuery = 'UPDATE ' .
+        $this -> tableName . ' SET ' .
+        implode(DELIMITER, $updateStr) .
+        (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) . ';';
 
         return (bool) $this -> dbh -> execute($uQuery, $params);
     }
 
-    public function _select($_params = ['*'], $_whereStr = null, $_joinStr = null, $_limitStr = null, $_orderbyStr = null)
-    {
+    public function _select(
+        $_params = ['*'],
+        $_whereStr = null,
+        $_joinStr = null,
+        $_limitStr = null,
+        $_orderbyStr = null
+    ) {
+
         if (empty($_params) || !is_array($_params)) {
             $_params = ['*'];
         }
 
-        $sQuery = 'SELECT ' . implode(DELIMITER, $_params) . ' FROM ' . $this -> tableName . (empty($_joinStr) ? null : ' INNER JOIN ' . $_joinStr) . (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) . (empty($_limitStr) ? null : ' LIMIT ' . $_limitStr) . (empty($_orderbyStr) ? null : ' ORDER BY ' . $_orderbyStr) . ';';
+        $sQuery = 'SELECT ' .
+        implode(DELIMITER, $_params) . ' FROM ' .
+        $this -> tableName . (empty($_joinStr) ? null : ' INNER JOIN ' . $_joinStr) .
+        (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) .
+        (empty($_limitStr) ? null : ' LIMIT ' . $_limitStr) .
+        (empty($_orderbyStr) ? null : ' ORDER BY ' . $_orderbyStr) . ';';
 
         return $this -> dbh -> execute($sQuery);
     }
 
     public function _delete($_whereStr = null)
     {
-        $dQuery = 'DELETE FROM ' . $this -> tableName . (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) . ';';
+        $dQuery = 'DELETE FROM ' .
+        $this -> tableName .
+        (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) . ';';
 
         return (bool) $this -> dbh -> execute($dQuery);
     }

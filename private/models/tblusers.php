@@ -34,7 +34,8 @@ final class TblUsers extends DbActionTemplate
         $_user = strtolower($_user);
 
         if ($_user != null) {
-            $where = (Validation::isNumber($_user) ? 'id = ' . $_user . ' OR ' : null) . 'username = \'' . $_user . '\'';
+            $where = (Validation::isNumber($_user) ?
+            'id = ' . $_user . ' OR ' : null) . 'username = \'' . $_user . '\'';
         }
 
         $result = parent::_select(['*'], $where);
@@ -63,7 +64,8 @@ final class TblUsers extends DbActionTemplate
         $_user = strtolower($_user);
 
         if ($_user != null) {
-            $where = (Validation::isNumber($_user) ? 'id = ' . $_user . ' OR ' : null) . 'username = \'' . $_user . '\'';
+            $where = (Validation::isNumber($_user) ?
+            'id = ' . $_user . ' OR ' : null) . 'username = \'' . $_user . '\'';
         }
 
         return parent::_update($_params, $where);

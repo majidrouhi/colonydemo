@@ -31,7 +31,11 @@ class User
             }
         }
 
-        if ($this -> user -> update($userData['id'], ['token' => $token, 'last_login' => NOW])) {
+        if ($this -> user -> update(
+            $userData['id'],
+            ['token' => $token,
+            'last_login' => NOW])
+        ) {
             return ['token' => $token];
         }
     }

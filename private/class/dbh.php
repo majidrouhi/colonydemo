@@ -9,7 +9,7 @@ class DBH
         $this -> port = DB_PORT;
         $this -> username = DB_USERNAME;
         $this -> password = DB_PASSWORD;
-        $this -> charset = DB_CAARSET;
+        $this -> charset = DB_CHARSET;
         $this -> dbName = $_dbName;
     }
 
@@ -31,7 +31,12 @@ class DBH
     public function connect()
     {
         try {
-            $this -> dbh = new pdo('mysql:host=' . $this -> host . ';port=' . $this -> port . ';dbname=' . $this -> dbName . ';charset=' . $this -> charset . ';', $this -> username, $this -> password);
+            $this -> dbh = new pdo(
+                'mysql:host=' . $this -> host .
+                ';port=' . $this -> port .
+                ';dbname=' . $this -> dbName .
+                ';charset=' . $this -> charset .
+                ';', $this -> username, $this -> password);
 
             $this -> dbh -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $ex) {

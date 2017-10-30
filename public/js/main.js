@@ -3,8 +3,8 @@ var app = angular.module('colonydemo', []);
 
 app.constant('appConfig', {
 	appversion: '0.0.1',
-	appproducer: 'Mr. Python',
-	api: 'http://colonydemo.localhost/api/'
+	appproducer: 'Mython',
+	api: 'http://colonydemo/api/'
 });
 
 app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
@@ -56,8 +56,8 @@ app.controller('QuestionsCtrl', function ($scope, $http, appConfig) {
 
 	$scope.redirectTo = function (action) {
 		$scope.dashboardShow = false;
-
-		if ((qCount == totalQuestions && totalQuestions > 0) || action == 'question') {
+		console.log($scope.answeredCount, totalQuestions);
+		if (($scope.answeredCount + $scope.currentQ != totalQuestions && action != 'report') || action == 'question') {
 			$scope.questionsShow = true;
 
 			$scope.showQuestion($scope.currentQ);

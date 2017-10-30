@@ -20,7 +20,8 @@ class Maintenance
 
     public static function checkIP()
     {
-        if (MAINTENANCE_MODE && !in_array($_SESSION['IP_ADDRESS'], explode(DELIMITER, VALID_IP_ADDRESS))) {
+        if (MAINTENANCE_MODE
+            && !in_array($_SESSION['IP_ADDRESS'], explode(DELIMITER, VALID_IP_ADDRESS))) {
             http_response_code(SERVICE_UNAVAILABLE);
 
             die('Your IP: ' . $_SESSION['IP_ADDRESS']);
@@ -29,7 +30,8 @@ class Maintenance
 
     public static function getViewOutput($_view)
     {
-        if (MAINTENANCE_MODE && !in_array($_SESSION['IP_ADDRESS'], explode(DELIMITER, VALID_IP_ADDRESS))) {
+        if (MAINTENANCE_MODE
+            && !in_array($_SESSION['IP_ADDRESS'], explode(DELIMITER, VALID_IP_ADDRESS))) {
             http_response_code(SERVICE_UNAVAILABLE);
 
             return MAINTENANCE_VIEW;

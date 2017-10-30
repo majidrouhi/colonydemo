@@ -22,7 +22,10 @@ class Common
 
     public static function upload($_file)
     {
-        if (!isset($_file['error']) || is_array($_file['error']) || $_file['error'] != UPLOAD_ERR_OK) {
+        if (!isset($_file['error'])
+            || is_array($_file['error'])
+            || $_file['error'] != UPLOAD_ERR_OK
+        ) {
             return null;
         }
 
@@ -60,11 +63,17 @@ class Common
     public static function getheaders()
     {
         if (!function_exists('getallheaders')) {
-            $headers = array();
+            $headers = [];
 
             foreach ($_SERVER as $name => $value) {
                 if (substr($name, 0, 5) == 'HTTP_') {
-                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                    $headers[
+                        str_replace(' ', '-', ucwords(
+                            strtolower(
+                                str_replace('_', ' ', substr($name, 5))
+                            )
+                        ))
+                    ] = $value;
                 }
             }
 
@@ -84,7 +93,7 @@ class Common
             return $_array;
         } else {
             $pivot = $_array[0];
-            $left = $right = array();
+            $left = $right = [];
 
             for ($i = 1; $i < $length; $i++) {
                 if ($_array[$i][$_sortElement] < $pivot[$_sortElement]) {
@@ -94,7 +103,11 @@ class Common
                 }
             }
 
-            return array_merge(self::quickSort($left, $_sortElement), array($pivot), self::quickSort($right, $_sortElement));
+            return array_merge(
+                self::quickSort($left, $_sortElement),
+                [$pivot],
+                self::quickSort($right, $_sortElement)
+            );
         }
     }
 }

@@ -18,7 +18,10 @@ class Token
             if (!isset($userData['token']) || $userData['token'] != $_token) {
                 return false; //throw new Exception(INVALID_TOKEN_ERROR);
             }
-            if ($token['origin'] != hash('sha256', $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . TOKEN_SECRET)) {
+            if ($token['origin'] != hash(
+                'sha256',
+                $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . TOKEN_SECRET)
+            ) {
                 return false; //throw new Exception(ORIGIN_ERROR);
             }
             if ($token['expiration'] != null && time() > $token['expiration']) {
@@ -34,7 +37,10 @@ class Token
     public static function generate($_userId, $_expiration = null)
     {
         $salt = hash('sha256', Common::randomString(LOGIN_TOKEN_LENGTH));
-        $origin = hash('sha256', $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . TOKEN_SECRET);
+        $origin = hash(
+            'sha256',
+            $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . TOKEN_SECRET
+        );
 
         if ($_expiration != null) {
             $_expiration = time() + $_expiration;
@@ -48,7 +54,10 @@ class Token
 
     public static function parse($_token)
     {
-        if (!Validation::checkLength($_token, ['min' => MIN_TOKEN_LENGTH, 'max' => MAX_TOKEN_LENGTH])) {
+        if (!Validation::checkLength(
+            $_token,
+            ['min' => MIN_TOKEN_LENGTH, 'max' => MAX_TOKEN_LENGTH])
+        ) {
             return null;
         }
 
