@@ -47,7 +47,7 @@
     define('NOW', date('Y/m/d H:i:s'));
     define('EMAIL_VALIDATOR', '/^[\w\.\-]{1,64}\@[\w\.\-]{1,184}\.[a-zA-Z0-9]{1,4}$/');
     define('DELIMITER', ',');
-    define('APPLICATION_TITLE', 'Colony App - Beta 2');
+    define('APPLICATION_TITLE', 'ColonyApp - Beta 2');
     define('TOKEN_SECRET', '4c061e6c9a7b16015e0847a12f41c835');
     define('LOGIN_TIMEOUT', 1800);
     define('API_PREFIX', '_API');
@@ -116,12 +116,12 @@
     // Database Identities
     define('DB_HOST', 'localhost');
     define('DB_PORT', 3306);
-    define('DB_USERNAME', 'colonydemo_user');
-    define('DB_PASSWORD', 'r1gYZCcYfDF2lDeR');
+    define('DB_USERNAME', 'colony_user');
+    define('DB_PASSWORD', 'colony_pass');
     define('DB_CHARSET', 'utf8');
 
     // Databases
-    define('DB_DATA', 'colonydemo');
+    define('DB_DATA', 'colony_demo');
     define('DB_LOG', 'log');
 
     // Tables
