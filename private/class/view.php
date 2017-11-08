@@ -10,7 +10,8 @@ class View
                 $allowedParams = explode(DELIMITER, VIEW_PARAMS);
 
                 $params = Validation::get($allowedParams);
-                $view = constant(strtoupper($params[$allowedParams[0]]) . VIEW_PREFIX);
+                $view = constant(
+                    strtoupper($params[$allowedParams[0]]) . VIEW_PREFIX);
             } else {
                 $view = $_view;
             }

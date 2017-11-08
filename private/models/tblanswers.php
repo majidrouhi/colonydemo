@@ -33,7 +33,8 @@ final class TblAnswers extends DbActionTemplate
         $where = null;
         $fetchedResult = [];
 
-        $where = Validation::isNumber($_userId) ? 'user_id = ' . $_userId : null;
+        $where = Validation::isNumber($_userId) ?
+        'user_id = ' . $_userId : null;
         $result = parent::_select($_fields, $where);
 
         while ($row = $result -> fetch(PDO::FETCH_ASSOC)) {
@@ -48,9 +49,14 @@ final class TblAnswers extends DbActionTemplate
         $where = null;
         $fetchedResult = [];
 
-        $where = Validation::isNumber($_questionId) ? 'question_id = ' . $_questionId : null;
+        $where = Validation::isNumber($_questionId) ?
+        'question_id = ' . $_questionId : null;
 
-        $result = parent::_select($_fields, $where, ' users ON users.id = answers.user_id');
+        $result = parent::_select(
+            $_fields,
+            $where,
+            ' users ON users.id = answers.user_id'
+        );
 
         while ($row = $result -> fetch(PDO::FETCH_ASSOC)) {
             $fetchedResult[] = $row;
@@ -61,7 +67,8 @@ final class TblAnswers extends DbActionTemplate
 
     public function getCount($_userId)
     {
-        $where = Validation::isNumber($_userId) ? 'user_id = ' . $_userId : null;
+        $where = Validation::isNumber($_userId) ?
+        'user_id = ' . $_userId : null;
 
         $result = parent::_select(['COUNT(*)'], $where);
 

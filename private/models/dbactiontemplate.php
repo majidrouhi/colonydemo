@@ -83,7 +83,9 @@ class DbActionTemplate implements iDbActionTemplate
 
         $sQuery = 'SELECT ' .
         implode(DELIMITER, $_params) . ' FROM ' .
-        $this -> tableName . (empty($_joinStr) ? null : ' INNER JOIN ' . $_joinStr) .
+        $this -> tableName . (empty($_joinStr) ?
+            null : ' INNER JOIN ' . $_joinStr
+        ) .
         (empty($_whereStr) ? null : ' WHERE ' . $_whereStr) .
         (empty($_limitStr) ? null : ' LIMIT ' . $_limitStr) .
         (empty($_orderbyStr) ? null : ' ORDER BY ' . $_orderbyStr) . ';';

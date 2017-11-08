@@ -19,7 +19,9 @@ class Question
 
     public function get()
     {
-        $userId = Token::parse(Common::getheaders()['Authorization'])['userId'];
+        $userId = Token::parse(
+            Common::getheaders()['Authorization']
+            )['userId'];
 
         $totalCount = $this -> question -> getCount();
         $result = $this -> question -> getByUser($userId);

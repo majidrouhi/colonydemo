@@ -42,7 +42,8 @@ final class TblQuestions extends DbActionTemplate
         $fetchedResult = [];
 
         $where = Validation::isNumber($_userId) ?
-        'id NOT IN (SELECT question_id from answers WHERE user_id = ' . $_userId . ')' : null;
+        'id NOT IN (SELECT question_id from answers WHERE user_id = '
+        . $_userId . ')' : null;
 
         $result = parent::_select(['*'], $where);
 
@@ -56,7 +57,8 @@ final class TblQuestions extends DbActionTemplate
     public function getCount($_category = null)
     {
         if ($_category != null) {
-            $where = Validation::isNumber($_category) ? 'category = ' . $_category : null;
+            $where = Validation::isNumber($_category) ?
+            'category = ' . $_category : null;
         }
 
         $result = parent::_select(['COUNT(*)'], $where);

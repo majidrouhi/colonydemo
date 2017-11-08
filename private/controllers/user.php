@@ -14,14 +14,22 @@ class User
             return null;
         }
 
-        $result = $this -> user -> insert($_params['name'], '123456', $_params['name'], '');
+        $result = $this -> user -> insert(
+            $_params['name'],
+            '123456',
+            $_params['name'],
+            ''
+        );
 
         return $result;
     }
 
     public function login($_params)
     {
-        $userData = $this -> user -> authenticate($_params['username'], '123456');
+        $userData = $this -> user -> authenticate(
+            $_params['username'],
+            '123456'
+        );
 
         if ($userData != null) {
             if (Token::verify($userData['token'])) {

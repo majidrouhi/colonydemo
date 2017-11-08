@@ -20,7 +20,9 @@ class Token
             }
             if ($token['origin'] != hash(
                 'sha256',
-                $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . TOKEN_SECRET)
+                $_SERVER['REMOTE_ADDR']
+                . $_SERVER['HTTP_USER_AGENT']
+                . TOKEN_SECRET)
             ) {
                 return false; //throw new Exception(ORIGIN_ERROR);
             }
@@ -74,6 +76,10 @@ class Token
             $expiration = substr($_token, strlen($_token) - $userIdLen - 75);
         }
 
-        return ['userId' => $userId, 'origin' => $origin, 'expiration' => $expiration];
+        return [
+            'userId' => $userId,
+            'origin' => $origin,
+            'expiration' => $expiration
+        ];
     }
 }

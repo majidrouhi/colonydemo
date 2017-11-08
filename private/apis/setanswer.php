@@ -15,7 +15,11 @@ $params[$allowedParams[1]] = Validation::isNumber(
     $params[$allowedParams[1]],
     ['min' => 0, 'max' => MAX_ID_LENGTH]) ?
     $params[$allowedParams[1]] : die();
-$params[$allowedParams[1]] = substr($params[$allowedParams[1]], 0, MAX_ID_LENGTH);
+$params[$allowedParams[1]] = substr(
+    $params[$allowedParams[1]],
+    0,
+    MAX_ID_LENGTH
+);
 
 $answer = new Answer();
 

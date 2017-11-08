@@ -61,21 +61,31 @@ class Validation
 
     public static function checkLength($_value, $_options = [])
     {
-        if (isset($_options['max']) && (strlen($_value) > (int) $_options['max'])) {
+        if (isset($_options['max'])
+            && (strlen($_value) > (int) $_options['max'])
+            ) {
             return false;
         }
-        if (isset($_options['min']) && (strlen($_value) < (int) $_options['min'])) {
+        if (isset($_options['min'])
+            && (strlen($_value) < (int) $_options['min'])
+            ) {
             return false;
         }
-        if (isset($_options['exact']) && (strlen($_value) != (int) $_options['exact'])) {
+        if (isset($_options['exact'])
+            && (strlen($_value) != (int) $_options['exact'])
+            ) {
             return false;
         }
 
         return true;
     }
 
-    public static function checkFormatting($_value, $_regex = '//', $_sanitize = true)
-    {
+    public static function checkFormatting(
+        $_value,
+        $_regex = '//',
+        $_sanitize = true
+    ) {
+
         if ($_sanitize) {
             return (bool) preg_match($_regex, self::sanitizeValue($_value));
         } else {

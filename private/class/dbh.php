@@ -13,8 +13,15 @@ class DBH
         $this -> dbName = $_dbName;
     }
 
-    public function __construct1($_host, $_port, $_username, $_password, $_charset, $_dbname)
-    {
+    public function __construct1(
+        $_host,
+        $_port,
+        $_username,
+        $_password,
+        $_charset,
+        $_dbname
+    ) {
+
         $this -> host = $_host;
         $this -> port = $_port;
         $this -> username = $_username;
@@ -38,11 +45,16 @@ class DBH
                 ';charset=' . $this -> charset .
                 ';', $this -> username, $this -> password);
 
-            $this -> dbh -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this -> dbh -> setAttribute(
+                PDO::ATTR_ERRMODE,
+                PDO::ERRMODE_EXCEPTION
+            );
         } catch (PDOException $ex) {
             $this -> dbh = null;
 
-            Maintenance::handleExceptions($ex, ($this -> dbName == DB_LOG) ? FILE : DB);
+            Maintenance::handleExceptions($ex, ($this -> dbName == DB_LOG) ?
+                FILE : DB
+            );
         }
     }
 
@@ -61,7 +73,9 @@ class DBH
         } catch (PDOException $ex) {
             $this -> dbh = null;
 
-            Maintenance::handleExceptions($ex, ($this -> dbName == DB_LOG) ? FILE : DB);
+            Maintenance::handleExceptions($ex, ($this -> dbName == DB_LOG) ?
+                FILE : DB
+            );
         }
     }
 }

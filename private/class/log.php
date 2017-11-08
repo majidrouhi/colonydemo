@@ -29,13 +29,32 @@ class Log
         }
     }
 
-    public function action($_file, $_function, $_line, $_message = null, $_mode = DB)
-    {
+    public function action(
+        $_file,
+        $_function,
+        $_line,
+        $_message = null,
+        $_mode = DB
+    ) {
+
         if ($_mode == FILE) {
-            self::insertToFile($_file, $_function, $_line, $_message, INFORMATION);
+            self::insertToFile(
+                $_file,
+                $_function,
+                $_line,
+                $_message,
+                INFORMATION
+            );
         } elseif ($_mode == DB) {
             $this -> log = new TblLogs();
-            $this -> log -> insert($_file, $_function, $_line, $_message, null, INFORMATION);
+            $this -> log -> insert(
+                $_file,
+                $_function,
+                $_line,
+                $_message,
+                null,
+                INFORMATION
+            );
         }
     }
 
@@ -50,14 +69,24 @@ class Log
         $exTrace = array_reverse($_ex -> gettrace());
 
         foreach ($exTrace as $key => $err) {
-            $trace[] = '[' . $key . '] ' . $err['file'] . ' (' . $err['function'] . ':' . $err['line'] . ')';
+            $trace[] = '[' . $key . '] '
+            . $err['file']
+            . ' (' . $err['function']
+            . ':' . $err['line'] . ')';
         }
 
         return implode(DELIMITER, $trace);
     }
 
-    private static function insertToFile($_file, $_function, $_line, $_message, $_type, $_trace = null)
-    {
+    private static function insertToFile(
+        $_file,
+        $_function,
+        $_line,
+        $_message,
+        $_type,
+        $_trace = null
+    ) {
+
         error_log(
             'Date Time: ' . NOW . PHP_EOL .
             'Source: ' . $_file . ' (' . $_function . ':' . $_line . ')' . PHP_EOL .

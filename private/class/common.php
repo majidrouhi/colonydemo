@@ -31,7 +31,11 @@ class Common
 
         $name = self::randomString(16) . basename($_file["file"]["name"]);
 
-        if (move_uploaded_file($_file["file"]["tmp_name"], UPLOADED_IMAGES_PATH . $name)) {
+        if (move_uploaded_file(
+                $_file["file"]["tmp_name"],
+                UPLOADED_IMAGES_PATH . $name
+            )
+        ) {
             return ['name' => $name];
         } else {
             return null;

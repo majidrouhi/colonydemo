@@ -8,7 +8,13 @@ class Maintenance
         if (!MAINTENANCE_MODE || (MAINTENANCE_MODE && LOG_ERRORS)) {
             $log = new Log();
 
-            $log -> error(__file__, __function__, __line__, $_exception, $_logLocation);
+            $log -> error(
+                __file__,
+                __function__,
+                __line__,
+                $_exception,
+                $_logLocation
+            );
         }
 
         if (!MAINTENANCE_MODE) {
@@ -21,7 +27,10 @@ class Maintenance
     public static function checkIP()
     {
         if (MAINTENANCE_MODE
-            && !in_array($_SESSION['IP_ADDRESS'], explode(DELIMITER, VALID_IP_ADDRESS))) {
+            && !in_array(
+                $_SESSION['IP_ADDRESS'],
+                explode(DELIMITER, VALID_IP_ADDRESS))
+                ) {
             http_response_code(SERVICE_UNAVAILABLE);
 
             die('Your IP: ' . $_SESSION['IP_ADDRESS']);
@@ -31,7 +40,10 @@ class Maintenance
     public static function getViewOutput($_view)
     {
         if (MAINTENANCE_MODE
-            && !in_array($_SESSION['IP_ADDRESS'], explode(DELIMITER, VALID_IP_ADDRESS))) {
+            && !in_array(
+                $_SESSION['IP_ADDRESS'],
+                explode(DELIMITER, VALID_IP_ADDRESS))
+                ) {
             http_response_code(SERVICE_UNAVAILABLE);
 
             return MAINTENANCE_VIEW;

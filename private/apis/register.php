@@ -8,7 +8,11 @@ if (!$params) {
     die();
 }
 
-$params[$allowedParams[0]] = substr($params[$allowedParams[0]], 0, MAX_FIRST_NAME_LENGTH);
+$params[$allowedParams[0]] = substr(
+    $params[$allowedParams[0]],
+    0,
+    MAX_FIRST_NAME_LENGTH
+);
 
 $user = new User();
 

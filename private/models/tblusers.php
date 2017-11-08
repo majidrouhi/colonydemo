@@ -20,7 +20,9 @@ final class TblUsers extends DbActionTemplate
     public function authenticate($_username, $_password)
     {
         $_username = strtolower($_username);
-        $where = 'username = \'' . $_username . '\' AND password = \'' . md5($_password) . '\'';
+        $where = 'username = \'' . $_username
+        . '\' AND password = \'' . md5($_password)
+        . '\'';
         $result = parent::_select(['*'], $where);
         $fetchedResult = $result -> fetch(PDO::FETCH_ASSOC);
 

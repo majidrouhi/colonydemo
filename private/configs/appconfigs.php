@@ -86,7 +86,6 @@
     define('REGISTER_API', APIS_PATH . 'register.php');
     define('SETANSWER_API', APIS_PATH . 'setanswer.php');
     define('GETREPORT_API', APIS_PATH . 'getreport.php');
-    define('GETSIMPATICO_API', APIS_PATH . 'getsimpatico.php');
 
     // Allowed Parameters
     define('API_PARAMS', 'api');
