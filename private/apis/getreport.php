@@ -3,9 +3,13 @@ if (!User::authorize()) {
     die();
 }
 
+$userId = Token::parse(
+    Common::getheaders()['Authorization']
+)['userId'];
+
 $answer = new Answer();
 
-$result = $answer -> get();
+$result = $answer -> get($userId);
 
 if ($result) {
     http_response_code(OK);

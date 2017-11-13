@@ -10,15 +10,12 @@ class Answer
         $this -> question = new TblQuestions();
     }
 
-    public function set($_params)
+    public function set($_userId, $_params)
     {
         $point = 1;
-        $userId = Token::parse(
-            Common::getheaders()['Authorization']
-            )['userId'];
 
         $result = $this -> answer -> insert(
-            $userId,
+            $_userId,
             $_params['questionId'],
             $_params['answer'],
             $point
@@ -46,53 +43,35 @@ class Answer
 
             for ($i = 1; $i < 177; $i++) {
                 if (isset($answers[$i])) {
+                    switch ($answers[$i]) {
+                    }
+
                     $this_user[] = (int) $answers[$i];
                 } else {
                     $this_user[] = 0;
                 }
             }
+
             $all[] = $this_user;
         }
 
         return $all;
     }
-    public function get($_userId = null, $_answers = null)
+
+    public function get($_userId)
     {
-        $userId = $_userId;
-
-        if ((string) $userId == null) {
-            $userId = Token::parse(
-                Common::getheaders()['Authorization']
-                )['userId'];
-        }
-
-        $weights = $this -> getWeights($userId, $_answers);
-        $report = $this -> analyzData($weights, $userId);
+        $weights = $this -> getWeights($_userId);
+        $report = $this -> analyzData($_userId, $weights);
 
         return $report;
     }
 
-    public function getAnswersCount()
+    private function getWeights($_userId)
     {
-        $userId = Token::parse(
-            Common::getheaders()['Authorization']
-            )['userId'];
-
-        $answeredCount = $this -> question -> getCount();
-
-        return ['answeredCount' => $answeredCount];
-    }
-
-    private function getWeights($_userId, $_answers = null)
-    {
-        $answers = $_answers;
-
-        if ($_answers == null) {
-            $answers = $this -> answer -> getByUser(
-                $_userId,
-                ['question_id', 'answer']
-            );
-        }
+        $answers = $this -> answer -> getByUser(
+            $_userId,
+            ['question_id', 'answer']
+        );
 
         foreach ($answers as $index => $answer) {
             $dataset = $this -> answer -> getByQuestion(
@@ -113,7 +92,7 @@ class Answer
         return $weights;
     }
 
-    private function analyzData($_data, $_userId)
+    private function analyzData($_userId, $_data)
     {
         $maxWeight = array_sum($_data[$_userId]);
         $maxCount = count($_data[$_userId]);
@@ -147,18 +126,18 @@ class Answer
             }
         }
 
-        return $all;
+        // return $all;
         return array_reverse(Common::quickSort($info, 'totalPercent'));
     }
 
     private static function getPoint($_sample, $_answer)
     {
         $statusSet = [
-        1 => [1 => 100, 2 => 75, 3 => 0, 4 => -75, 5 => -100],
-        2 => [1 => 75, 2 => 100, 3 => 25, 4 => -50, 5 => -75],
-        3 => [1 => 0, 2 => 25, 3 => 0, 4 => 25, 5 => 0],
-        4 => [1 => -75, 2 => -50, 3 => 25, 4 => 100, 5 => 75],
-        5 => [1 => -100, 2 => -75, 3 => 0, 4 => 75, 5 => 100]
+            1 => [1 => 100, 2 => 75, 3 => 0, 4 => -75, 5 => -100],
+            2 => [1 => 75, 2 => 100, 3 => 25, 4 => -50, 5 => -75],
+            3 => [1 => 0, 2 => 25, 3 => 0, 4 => 25, 5 => 0],
+            4 => [1 => -75, 2 => -50, 3 => 25, 4 => 100, 5 => 75],
+            5 => [1 => -100, 2 => -75, 3 => 0, 4 => 75, 5 => 100]
         ];
 
         return $statusSet[$_sample][$_answer];

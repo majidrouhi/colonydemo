@@ -21,9 +21,13 @@ $params[$allowedParams[1]] = substr(
     MAX_ID_LENGTH
 );
 
+$userId = Token::parse(
+    Common::getheaders()['Authorization']
+)['userId'];
+
 $answer = new Answer();
 
-$result = $answer -> set($params);
+$result = $answer -> set($userId, $params);
 
 if ($result) {
     http_response_code(OK);
